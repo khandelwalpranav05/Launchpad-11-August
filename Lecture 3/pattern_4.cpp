@@ -9,23 +9,48 @@ int main(){
 
 	// for(int row=1 ;row <= n; row++){
 
+	// 	//Space
+	// 	for(int col=1; col<=n-row; col++){
+	// 		cout<<" ";
+	// 	}
+
+	// 	//Dec
+	// 	for(int numDec = row;numDec >= 1;numDec--){
+	// 		cout<<numDec;
+	// 	}
+
+	// 	//Inc
+	// 	for(int numInc = 2;numInc <= row; numInc++){
+	// 		cout<<numInc;
+	// 	}
+
+	// 	cout<<endl;
+	// }
+
+	int n;
+	cin>>n;
+
+	for(int row=1 ;row <= n; row++){
+
 		//Space
 		for(int col=1; col<=n-row; col++){
 			cout<<" ";
 		}
-
-		//Dec
-		for(int col = row;col >= 1;col--){
-			cout<<col;
+		
+		for(int incDec = -row;incDec <= row;incDec++){
+			if(incDec < 0){
+				// incDec = incDec*(-1); //Wrong
+				// cout<<incDec;
+				cout<<(incDec*(-1));
+			}else if(incDec==0 or incDec==1){
+				continue;
+			}else{
+				cout<<incDec;
+			}
 		}
 
-		//Inc
-		for(int col = 2;col <= row; col++){
-			cout<<col;
-		}
-
-	// 	cout<<endl;
-	// }
+		cout<<endl;
+	}
 
 	// int i= 0;
 
@@ -41,12 +66,12 @@ int main(){
 
 	// cout<<i<<endl;
 
-	if(123){
-		int val = 10;
+	// if(123){
+	// 	int val = 10;
 
-	}
+	// }
 
-	cout<<val<<endl;
+	// cout<<val<<endl;
 
 	return 0;
 }
