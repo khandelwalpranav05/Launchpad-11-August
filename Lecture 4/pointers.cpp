@@ -4,24 +4,24 @@ using namespace std;
 
 int main(){
 
-	int x = 10;
+	// int x = 10;
 
 	// cout<<(&x)<<endl; //8080
 
-	int* xptr = &x;
+	// int* xptr = &x;
 	// cout<<((void*)xptr)<<endl;
 	// cout<<xptr<<endl;
 
-	cout<<(&x)<<endl;
-	cout<<xptr<<endl;
+	// cout<<(&x)<<endl;
+	// cout<<xptr<<endl;
 
-	int** xxptr = &xptr;
+	// int** xxptr = &xptr;
 
-	cout<<xxptr<<endl;
-	cout<<(&xptr)<<endl;
+	// cout<<xxptr<<endl;
+	// cout<<(&xptr)<<endl;
 
-	cout<<(xxptr + 1)<<endl;
-	cout<<(*xxptr)<<endl;
+	// cout<<(xxptr + 1)<<endl;
+	// cout<<(*xxptr)<<endl;
 
 	// void * new_xptr = (void*)xptr;
 
@@ -60,15 +60,15 @@ int main(){
 	// float f = (float)10*10;
 	// cout<<f<<endl;
 
-	// char c = 'A';
+	char c = 'A';
 
-	// cout<<((void*)&c)<<endl;
+	cout<<((void*)&c)<<endl;
 
-	// char *cptr = &c;
+	char *cptr = &c;
 
-	// cout<<sizeof(cptr)<<endl;
+	cout<<sizeof(cptr)<<endl;
 
-	// cout<<((int)c)<<endl;
+	cout<<((int)c)<<endl;
 
 	return 0;
 }

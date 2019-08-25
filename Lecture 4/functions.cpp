@@ -37,11 +37,13 @@ int main(){
 
 	// cout<<factorial<<endl;
 
-	int n_fact = factorial(n); //factorial(6)
-	int r_fact = factorial(r);
-	int nr_fact = factorial(nr);
+	// int n_fact = factorial(n); //factorial(6)
+	// int r_fact = factorial(r);
+	// int nr_fact = factorial(nr);
 
-	int result = n_fact/(r_fact*nr_fact);
+	// int result = n_fact/(r_fact*nr_fact);
+
+	int result = factorial(n)/(factorial(r)*factorial(nr));
 
 	cout<<result<<endl; 
 
