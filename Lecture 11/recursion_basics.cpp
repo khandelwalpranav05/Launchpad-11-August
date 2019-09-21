@@ -83,15 +83,59 @@ bool isSorted(int arr[],int idx,int n){
 	//Recursive Case
 	bool rest_of_the_array = isSorted(arr,idx+1,n);
 
-	if(rest_of_the_array==false){
-		return false;
+	// if(rest_of_the_array==false){
+	// 	return false;
+	// }else{
+	// 	if(arr[idx]>arr[idx+1]){
+	// 		return false;
+	// 	}else{
+	// 		return true;
+	// 	}
+	// }
+
+	if(rest_of_the_array and arr[idx]<arr[idx+1]){
+		return true;
 	}else{
-		if(arr[idx]>arr[idx+1]){
-			return false;
+		return false;
+	}
+}
+
+int linearSearch(int arr[],int idx,int n,int data){
+	if(idx==n){
+		return -1;
+	}
+
+
+	if(arr[idx]==data){
+		return idx;
+	}
+
+	int indexFound = linearSearch(arr,idx+1,n,data);
+	// if(indexFound==-1){
+	// 	return -1;
+	// }else{
+	// 	return indexFound;
+	// }
+	return indexFound;
+}
+
+int lastIndex(int arr[],int idx,int n,int data){
+	if(idx==n){
+		return -1;
+	}
+
+	int indexFound = lastIndex(arr,idx+1,n,data);
+
+	if(indexFound!=-1){
+		return indexFound;
+	}else{
+		if(arr[idx]==data){
+			return idx;
 		}else{
-			return true;
+			return -1;
 		}
 	}
+
 }
 
 int main(){
@@ -107,14 +151,23 @@ int main(){
 	// cout<<"*********"<<endl;
 	// printDI(5);
 
-	int arr[] = {1,2,3,4,5};
-	int brr[] = {132,2,3,5,6};
+	// int arr[] = {1,2,3,4,5};
+	// int brr[] = {132,2,3,5,6};
 
-	cout<<isSorted(arr,0,5)<<endl;
-	cout<<isSorted(brr,0,5)<<endl;
-
+	// cout<<isSorted(arr,0,5)<<endl;
+	// cout<<isSorted(brr,0,5)<<endl;
 	// cout<<sizeof(printDI(5))<<endl;
-	
+	int data = 3;
+	int arr[] = {3,2,3,5,6,4,3};
+	cout<<linearSearch(arr,0,7,data)<<endl;
+	cout<<lastIndex(arr,0,7,data)<<endl;
+	// for(int i=0;i<7;i++){
+	// 	if(arr[i]==data){
+	// 		cout<<"Found"<<endl;
+	// 		break;
+	// 	}
+	// }
+
 
 	return 0;
 }
