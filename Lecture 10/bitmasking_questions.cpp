@@ -2,6 +2,39 @@
 
 using namespace std;
 
+int uniqueNumberTriplet(int arr[],int n){
+
+	int bitAdder[32] = {0}; 
+
+	for(int i=0;i<n;i++){
+
+		int no = arr[i];
+
+		for(int j=31;j>=0;j--){
+
+			int temp = (no&1);
+			bitAdder[j]+=temp;
+			no = no>>1;
+
+			if(no==0){
+				break;
+			}
+		}
+	}
+
+	int multiply = 1;
+	int number = 0;
+
+	for(int i=31;i>=0;i--){
+		bitAdder[i] = bitAdder[i]%3;
+		// number += (1<<(31-i))*bitAdder[i];
+		number+= multiply*bitAdder[i];
+		multiply = multiply<<1;
+	}
+
+	return number;
+}
+
 void uniqueNumberPair(int arr[],int n){
 
 	int pairXor = arr[0];

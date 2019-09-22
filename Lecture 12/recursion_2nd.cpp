@@ -54,6 +54,79 @@ string addStar(string str){
 	}
 }
 
+string moveXtoEnd(string str){
+	//Base Case
+	if(str.length()==0){
+		return str;
+		// return "";
+	}
+
+	//Recursive Case
+	char ch = str[0];
+	string ros = str.substr(1);
+
+	string recursion_result = moveXtoEnd(ros);
+
+	if(ch=='x'){
+		return recursion_result + ch;
+	}else{
+		return ch + recursion_result;
+	}
+}
+
+string replacePi(string str){
+	//Base Case
+	if(str.length()==0){
+		return str;
+	}
+
+	//Recursive Case
+
+	char ch = str[0];
+	string ros = str.substr(1);
+
+	string recursion_result = replacePi(ros);
+
+	if(ch=='p' and recursion_result[0]=='i'){
+		return "3.14" + recursion_result.substr(1); 
+	}else{
+		return ch + recursion_result;
+	}
+}
+
+string removeDuplicate(string str){
+	//Base Case
+	if(str.length()==0){
+		return str;
+	}
+
+	//Recursive Case
+	char ch = str[0];
+	string ros = str.substr(1);
+
+	string recursion_result = removeDuplicate(ros);
+
+	if(ch==recursion_result[0]){
+		return recursion_result;
+	}else{
+		return ch + recursion_result;
+	}
+}
+
+void printSubsequence(string str,string ans){
+	if(str.length()==0){
+		cout<<ans<<endl;
+		return;
+	}
+
+	char ch = str[0];
+	string ros = str.substr(1);
+
+	printSubsequence(ros,ans);
+	printSubsequence(ros,ch+ans);
+
+}
+
 int main()
 {
 	// cout<<powerBetter(2,8)<<endl;
@@ -62,8 +135,23 @@ int main()
 	// cout<<addStar("aahelloo")<<endl;
 
 	// cout<<(('a' + "kjbsdb") + 'l')<<endl;
+	// cout<<sizeof("abcd")<<endl; //Character array
 
-	cout<<sizeof("abcd")<<endl;
+	// cout<<moveXtoEnd("abaxxbjdnaxxpx")<<endl;
+	// cout<<moveXtoEnd("xxxxxxxlsefn")<<endl;
+
+	//Mat Karo
+	// cout<<("abc" - "bc")<<endl;
+	// int arr[] = {-12,2,789};
+	// cout<<(&arr[10])<<endl<<(&arr[0])<<endl;
+	// cout<<(&arr[10] - &arr[0])<<endl;
+
+	// cout<<replacePi("xxxpixxpipixxipipxxxpixxxiipii");
+
+	// cout<<removeDuplicate("aaabbbcccbss")<<endl;
+	// cout<<removeDuplicate("ghjkl")<<endl;
+
+	printSubsequence("abc","");
 
 	return 0;
 }
