@@ -35,10 +35,56 @@ void mappedString(string str,string ans){
 string code[] = {" ",".","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"}; 
 
 void keypad(string str,string ans){
+	if(str.length()==0){
+		cout<<ans<<endl;
+		return;
+	}
 
+	char ch = str[0];
+	string ros = str.substr(1);
 
+	string key = code[ch-'0'];
+
+	// keypad(ros,ans+key[0]); //Wrong Way
+	// keypad(ros,ans+key[1]);
+	// keypad(ros,ans+key[2]);
+	// keypad(ros,ans+key[3]);
+
+	for(int i=0;i<key.length();i++){
+		keypad(ros,ans+key[i]);
+	}
 }
 
+void printPermutations(string str,string ans){
+	if(str.length()==0){
+		cout<<ans<<endl;
+		return;
+	}
+
+	for(int i=0;i<str.length();i++){
+		char ch = str[i];
+		string ros = str.substr(0,i) + str.substr(i+1);
+		printPermutations(ros,ans+ch);
+	}
+}
+
+int countBoardPath(int start,int end){
+	if(start==end){
+		return 1;
+	}
+
+	if(start>end){
+		return 0;
+	}
+
+	int count = 0;
+
+	for(int i=1;i<=6;i++){
+		count += countBoardPath(start+i,end);
+	}
+
+	return count;
+}
 
 int main(){
 
@@ -50,7 +96,13 @@ int main(){
     // ch = ch + 'A' - '1';
     // cout<<ch<<endl;
 
-    mappedString("123","");
+    // mappedString("123","");
+
+    // keypad("37","");
+
+    // printPermutations("abc","");
+
+    cout<<countBoardPath(0,10)<<endl;
 
 	return 0;
 }
