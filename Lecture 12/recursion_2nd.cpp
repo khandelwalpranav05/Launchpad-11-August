@@ -113,7 +113,10 @@ string removeDuplicate(string str){
 	}
 }
 
+// int check = 0;
+
 void printSubsequence(string str,string ans){
+	// check++;
 	if(str.length()==0){
 		cout<<ans<<endl;
 		return;
@@ -123,7 +126,7 @@ void printSubsequence(string str,string ans){
 	string ros = str.substr(1);
 
 	printSubsequence(ros,ans);
-	printSubsequence(ros,ch+ans);
+	printSubsequence(ros,ans+ch);
 
 }
 
@@ -152,6 +155,7 @@ int main()
 	// cout<<removeDuplicate("ghjkl")<<endl;
 
 	printSubsequence("abc","");
+	cout<<check<<endl;
 
 	return 0;
 }
