@@ -10,20 +10,26 @@ bool isSafe(int board[][4],int row,int col, int n){
 		}
 	}
 
-	while(row>=0 and col>=0){
-		if(board[row][col]){
+	int x = row;
+	int y = col;
+
+	while(x>=0 and y>=0){
+		if(board[x][y]){
 			return false;
 		}
-		row--;
-		col--;
+		x--;
+		y--;
 	}
 
-	while(row>=0 and col<n){
-		if(board[row][col]){
+	x = row;
+	y = col;
+
+	while(x>=0 and y<n){
+		if(board[x][y]){
 			return false;
 		}
-		row--;
-		col++;
+		x--;
+		y++;
 	}
 
 	return true;
@@ -70,6 +76,8 @@ void printNQueens(int board[][4],int row,int n){
 			}
 			cout<<endl;
 		}
+
+		cout<<"*****************"<<endl;
 
 		return;
 	}
