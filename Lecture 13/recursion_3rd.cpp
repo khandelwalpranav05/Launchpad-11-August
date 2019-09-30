@@ -68,8 +68,11 @@ void printPermutations(string str,string ans){
 	}
 }
 
+int counter = 0;
+
 int countBoardPath(int start,int end){
 	if(start==end){
+		counter++;
 		return 1;
 	}
 
@@ -85,6 +88,57 @@ int countBoardPath(int start,int end){
 
 	return count;
 }
+
+int countMazePath(int startRow,int startCol,int endRow,int endCol){
+
+	if(startRow==endRow and startCol==endCol){
+		return 1;
+	}
+
+	if(startRow>endRow or startCol >endCol){
+		return 0;
+	}
+
+	int count = 0;
+
+	int veritcal = countMazePath(startRow+1,startCol,endRow,endCol);
+	int horizontal = countMazePath(startRow,startCol+1,endRow,endCol);
+
+	count = veritcal + horizontal;
+	return count;
+}
+
+void printMazePath(int startRow,int startCol,int endRow,int endCol,string path){
+	if(startRow==endRow and startCol==endCol){
+		cout<<path<<endl;
+		return;
+	}
+
+	if(startRow>endRow or startCol >endCol){
+		//
+		return;
+	}
+
+	printMazePath(startRow+1,startCol,endRow,endCol,path+"vertical -> ");
+	printMazePath(startRow,startCol+1,endRow,endCol,path+"horizontal -> ");
+}
+
+void printBoardPath(int start,int end,string path){
+	if(start==end){
+		cout<<path<<endl;
+		return;
+	}
+
+	if(start>end){
+		return;
+	}
+
+	for(int i=1;i<=6;i++){
+		char ch = i + '0';
+		printBoardPath(start+i,end,path + "->" + ch);
+	}
+}
+
 
 int main(){
 
@@ -102,7 +156,13 @@ int main(){
 
     // printPermutations("abc","");
 
-    cout<<countBoardPath(0,10)<<endl;
+    // cout<<countBoardPath(0,4)<<endl;
+    // cout<<counter<<endl;
+
+    // cout<<countMazePath(0,0,2,2)<<endl;
+    // printMazePath(0,0,2,2,"");
+
+	// printBoardPath(0,4,"");
 
 	return 0;
 }
