@@ -250,6 +250,55 @@ int painterProblem(int arr[],int n,int k,int time=1){
 	}
 
 	return ans*time;
+}
+
+int bookAllocation(){
+	//TODO
+}
+
+bool isPossible(int arr[],int n,int k,int mid){
+
+	int cow = 1;
+	int currently_alloted  = arr[0];
+
+	for(int i= 1;i<n;i++){
+
+		if((arr[i] - currently_alloted) >= mid){
+			cow++;
+			currently_alloted = arr[i];
+
+			if(cow==k){
+				return true;
+			}
+		}
+
+	}
+
+	return false;
+}
+
+int aggressiveCows(int arr[],int n,int k){
+
+	int minDist = 0;
+	int maxDist = arr[n-1] - arr[0];
+
+	int ans = minDist;
+
+	while(minDist<=maxDist){
+
+		int mid = minDist + (maxDist-minDist)/2;
+
+		if(isPossible(arr,n,k,mid)){
+			
+			// SAME as below okay ?
+
+		}else{
+
+			//Dekh lena kya scene hai
+
+		}
+
+	}
 
 }
 
@@ -283,8 +332,8 @@ int main(){
 	// }
 	// cout<<endl;
 
-	int arr[] = {25,30,35,40};
-	cout<<painterProblem(arr,4,2)<<endl;
+	// int arr[] = {25,30,35,40};
+	// cout<<painterProblem(arr,4,2)<<endl;
 
 
 	// int x = 2147483647;
