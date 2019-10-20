@@ -1,0 +1,58 @@
+#include <iostream>
+
+using namespace std;
+
+class node{
+public:
+	int data;
+	node* left;
+	node* right;
+
+	node(int data){
+		this->data = data;
+		this->left = NULL;
+		this->right =NULL;
+	}
+};
+
+node* buildTree(node*root){
+	int data;
+	cin>>data;
+
+	if(data==-1){
+		return NULL;
+	}
+
+	if(root==NULL){
+		node* n = new node(data);
+		root = n;
+	}
+
+	root->left = buildTree(root->left);
+	root->right = buildTree(root->right);
+
+	return root;
+}
+
+void displayPreorder(node*root){
+	if(root==NULL){
+		return;
+	}
+
+	cout<<root->data<<" ";
+	displayPreorder(root->left);
+	displayPreorder(root->right);
+}
+
+int main(){
+
+	node* root = NULL;
+
+	root = buildTree(root);
+	displayPreorder(root);
+	cout<<endl;
+
+	return 0;
+}
+
+// 4 2 1 -1 -1 3 -1 -1 6 5 -1 -1 7 -1 -1
