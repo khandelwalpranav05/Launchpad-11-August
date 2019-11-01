@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -76,6 +77,63 @@ int countNodes(node*root){
 	return totalCount;
 }
 
+bool search(node*root,int item){
+	if(root==NULL){
+		return false;
+	}
+
+	if(root->data ==item){
+		return true;
+	}
+
+	bool leftSearch = search(root->left,item);
+	bool rightSearch = search(root->right,item);
+
+	return leftSearch + rightSearch;
+}
+
+int height(node*root){
+	if(root==NULL){
+		return -1;
+	}
+
+	int leftHeight = height(root->left);
+	int rightHeight = height(root->right);
+
+	int totalHeight = max(leftHeight,rightHeight) + 1;
+	return totalHeight;
+}
+
+void levelOrder(node*root){
+	queue<node*> q;
+
+	q.push(root);
+
+	while(!q.empty()){
+
+		node* temp = q.front();
+		q.pop();
+
+		cout<<temp->data<<" ";
+
+		if(temp->left!=NULL){
+			q.push(temp->left);
+		}
+
+		if(temp->right!=NULL){
+			q.push(temp->right);
+		}
+	}
+
+	cout<<endl;
+}
+
+void printAllRootToLeaf(node*root,string path){
+
+	
+
+}
+
 int main(){
 
 	node* root = NULL;
@@ -88,7 +146,14 @@ int main(){
 	// displayInorder(root);
 	// cout<<endl;
 
-	cout<<countNodes(root)<<endl;
+	// cout<<countNodes(root)<<endl;
+
+	// cout<<search(root,6)<<endl;
+	// cout<<search(root,78)<<endl;
+
+	// cout<<height(root)<<endl;
+
+	// levelOrder(root);
 
 	return 0;
 }
