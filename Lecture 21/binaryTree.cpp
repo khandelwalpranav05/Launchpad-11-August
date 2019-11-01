@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <cmath>	
 
 using namespace std;
 
@@ -129,9 +130,126 @@ void levelOrder(node*root){
 }
 
 void printAllRootToLeaf(node*root,string path){
+	if(root==NULL){
+		return;
+	}
 
-	
+	char ch = root->data + '0';
 
+	if(root->left==NULL and root->right==NULL){
+		path = path + ch;
+		cout<<path<<endl;
+		return;
+	}
+
+	printAllRootToLeaf(root->left,path+ch);
+	printAllRootToLeaf(root->right,path+ch);
+}
+
+int diameter(node*root){
+	if(root==NULL){
+		return 0;
+	}
+
+	int leftDiameter = diameter(root->left);
+	int rightDiameter = diameter(root->right);
+
+	int leftHeight = height(root->left);
+	int rightHeight = height(root->right);
+
+	int totalDiameter = max(leftHeight + rightHeight + 2,max(leftDiameter,rightDiameter));
+
+	return totalDiameter;
+}
+
+class DiaHeight{
+public:
+	int diameter;
+	int height;
+
+	DiaHeight(){
+		diameter = 0;
+		height = -1;
+	}
+};
+
+DiaHeight diameterOptimized(node*root){
+	DiaHeight val;
+
+	if(root==NULL){
+		return val;
+	}
+
+
+	DiaHeight leftPair = diameterOptimized(root->left);
+	DiaHeight rightPair = diameterOptimized(root->right);
+
+	val.diameter = max(max(leftPair.diameter,rightPair.diameter),leftPair.height + rightPair.height + 2);
+
+	val.height = max(leftPair.height,rightPair.height) + 1;
+
+	return val;
+}
+
+bool isBalanced(node*root){
+	if(root==NULL){
+		return true;
+	}
+
+	bool leftBalanced = isBalanced(root->left);
+	bool rightBalanced = isBalanced(root->right);
+
+	if(!leftBalanced or !rightBalanced){
+		return false;
+	}
+
+	int leftHeight = height(root->left);
+	int rightHeight = height(root->right);
+
+	int diff = abs(leftHeight - rightHeight);
+
+	if(diff>1){
+		return false;
+	}else{
+		return true;
+	}
+}
+
+node* LCA(node*root,int data1,int data2){
+	if(root==NULL){
+		return NULL;
+	}
+
+	if(root->data==data1 or root->data==data2){
+		return root;
+	}
+
+	node* leftLCA = LCA(root->left,data1,data2);
+	node* rightLCA = LCA(root->right,data1,data2);
+
+	if(leftLCA==NULL and rightLCA==NULL){
+		return NULL;
+	}
+
+	if(leftLCA!=NULL and rightLCA!=NULL){
+		return root;
+	}
+
+	return leftLCA!=NULL ? leftLCA : rightLCA;
+}
+
+int replaceWithSum(node*root){
+	if(root==NULL){
+		return 0;
+	}
+
+	int leftSum = replaceWithSum(root->left);
+	int rightSum = replaceWithSum(root->right);
+
+	int temp = root->data;
+	root->data = leftSum + rightSum;
+
+	return root->data + temp;
 }
 
 int main(){
@@ -155,7 +273,23 @@ int main(){
 
 	// levelOrder(root);
 
+	// printAllRootToLeaf(root,"");
+
+	// cout<<diameter(root)<<endl;
+
+	// DiaHeight val = diameterOptimized(root);
+	// cout<<val.diameter<<endl;
+	// cout<<val.height<<endl;
+
+	// cout<<isBalanced(root)<<endl;
+
+	node* common = LCA(root,1,7);
+	cout<<common->data<<endl;
+
+	common = LCA(root,5,7);
+	cout<<common->data<<endl;
+
 	return 0;
 }
 
-// 4 2 1 -1 -1 3 -1 -1 6 5 -1 -1 7 -1 -1
+// 	
