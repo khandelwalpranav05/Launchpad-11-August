@@ -44,15 +44,51 @@ void displayPreorder(node*root){
 	displayPreorder(root->right);
 }
 
+void displayInorder(node*root){
+	if(root==NULL){
+		return;
+	}
 
+	displayInorder(root->left);
+	cout<<root->data<<" ";
+	displayInorder(root->right);
+}
+
+void displayPostorder(node*root){
+	if(root==NULL){
+		return;
+	}
+
+	displayPostorder(root->left);
+	displayPostorder(root->right);
+	cout<<root->data<<" ";
+}
+
+int countNodes(node*root){
+	if(root==NULL){
+		return 0;
+	}
+
+	int leftCount = countNodes(root->left);
+	int rightCount = countNodes(root->right);
+
+	int totalCount = leftCount + rightCount + 1;
+	return totalCount;
+}
 
 int main(){
 
 	node* root = NULL;
 
 	root = buildTree(root);
-	displayPreorder(root);
-	cout<<endl;
+	// displayPreorder(root);
+	// cout<<endl;
+	// displayPostorder(root);
+	// cout<<endl;
+	// displayInorder(root);
+	// cout<<endl;
+
+	cout<<countNodes(root)<<endl;
 
 	return 0;
 }
