@@ -252,11 +252,139 @@ int replaceWithSum(node*root){
 	return root->data + temp;
 }
 
+class levelPair{
+	node* root;
+	int level;
+};
+
+void levelOrderNewLine(node*root){
+	queue<node*> q;
+
+	q.push(root);
+	q.push(NULL);
+
+	while(!q.empty()){
+		node* temp = q.front();
+		q.pop();
+
+		if(temp==NULL){
+			cout<<endl;
+
+			if(!q.empty()){
+				q.push(NULL);
+			}
+
+			continue;
+		}
+
+		cout<<temp->data<<" ";
+
+		if(temp->left!=NULL){
+			q.push(temp->left);
+		}
+
+		if(temp->right!=NULL){
+			q.push(temp->right);
+		}
+
+	}
+}
+
+int findHeight(node*root,int k,int level){
+	if(root==NULL){
+		return -1;
+	}
+
+	if(root->data==k){
+		return level;
+	}
+
+	int leftDistance = findHeight(root->left,k,level+1);
+
+	if(leftDistance==-1){
+		int rightDistance = findHeight(root->right,k,level+1);
+		return rightDistance;
+	}
+
+	return leftDistance;
+
+}
+
+int findDistance(node*root,int data1,int data2){
+
+	node* common = LCA(root,data1,data2);
+
+	int d1 = findHeight(common,data1,0);
+	int d2 = findHeight(common,data2,0);
+
+	return d1 + d2;
+}
+
+class BalancePair{
+public:
+	int height;
+	bool balance;
+
+	BalancePair(){
+		height = -1;
+		balance = true;
+	}
+};
+
+BalancePair isBalancedOptimized(node*root){
+	BalancePair val;
+
+	if(root==NULL){
+		return val;
+	}
+
+	BalancePair leftPair = isBalancedOptimized(root->left);
+	BalancePair rightPair = isBalancedOptimized(root->right);
+
+	val.height = max(leftPair.height,rightPair.height) + 1;
+
+	if(!leftPair.balance or !rightPair.balance or abs(leftPair.height - rightPair.height) > 1){
+
+		val.balance = false;
+		return val;
+	}
+
+	val.balance = true;
+
+	return val;
+}
+
+int preorderCounter = 0;
+
+node* buildTreeFromPreorderInorder(int pre[],int in[],int s,int e){
+	if(s>e){
+		return NULL;
+	}
+
+	node* root = new node(pre[preorderCounter]);
+
+	int mid = -1;
+
+	for(int i=s;i<=e;i++){
+		if(in[i]==pre[preorderCounter]){
+			mid = i;
+			break;
+		}
+	}
+
+	preorderCounter++;
+
+	root->left = buildTreeFromPreorderInorder(pre,in,s,mid-1);
+	root->right = buildTreeFromPreorderInorder(pre,in,mid+1,e);
+
+	return root;
+}
+
 int main(){
 
-	node* root = NULL;
+	// node* root = NULL;
 
-	root = buildTree(root);
+	// root = buildTree(root);
 	// displayPreorder(root);
 	// cout<<endl;
 	// displayPostorder(root);
@@ -283,13 +411,28 @@ int main(){
 
 	// cout<<isBalanced(root)<<endl;
 
-	node* common = LCA(root,1,7);
-	cout<<common->data<<endl;
+	// node* common = LCA(root,1,7);
+	// cout<<common->data<<endl;
 
-	common = LCA(root,5,7);
-	cout<<common->data<<endl;
+	// common = LCA(root,5,7);
+	// cout<<common->data<<endl;
+
+	// levelOrderNewLine(root);
+
+	// cout<<findDistance(root,1,7)<<endl;
+
+	// BalancePair val = isBalancedOptimized(root);
+	// cout<<val.height<<endl;
+	// cout<<val.balance<<endl;
+
+	int pre[] = {4,2,1,3,6,5,7};
+	int in[] = {1,2,3,4,5,6,7};
+	node* root = buildTreeFromPreorderInorder(pre,in,0,6);
+
+	displayPreorder(root);
+	cout<<endl;
 
 	return 0;
 }
 
-// 	
+// 4 2 1 -1 -1 3 -1 -1 6 5 -1 -1 7 -1 -1
