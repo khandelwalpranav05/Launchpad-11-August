@@ -234,6 +234,47 @@ LinkListPair treeToLinkedList(node*root){
 	}
 }
 
+class TreeDetail{
+public:
+	int size;
+	bool bst;
+	int min;
+	int max;
+
+	TreeDetail(){
+		size = 0;
+		bst = true;
+		min = INT_MAX;
+		max = INT_MIN;
+	}
+};
+
+TreeDetail largestBSTinBinaryTree(node*root){
+	TreeDetail val;
+
+	if(root==NULL){
+		return val;
+	}
+
+	TreeDetail leftDetail = largestBSTinBinaryTree(root->left);
+	TreeDetail rightDetail = largestBSTinBinaryTree(root->right);
+
+	if(leftDetail.bst == false or rightDetail.bst==false or root->data < leftDetail.max or root->data > rightDetail.min){
+		val.bst = false;
+		val.size = max(leftDetail.size,rightDetail.size);
+		return val;
+	}
+
+	val.bst = true;
+	val.size = leftDetail.size + rightDetail.size + 1;
+
+	val.min = root->left!=NULL ? leftDetail.min : root->data;
+
+	val.max = root->right!=NULL ? rightDetail.max : root->data;
+
+	return val;
+}
+
 int main(){
 
 	node* root = buildTree();
