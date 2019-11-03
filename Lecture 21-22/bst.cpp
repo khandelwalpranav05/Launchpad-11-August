@@ -147,6 +147,93 @@ void printLeaf(node*root){
 	printLeaf(root->right);
 }
 
+int numberOfBST(int n){
+	if(n==0 or n==1){
+		return 1;
+	}
+
+	int ans = 0;
+
+	for(int i=1;i<=n;i++){
+		ans += numberOfBST(i-1)*numberOfBST(n-i); 
+	}
+	return ans;
+}
+
+int maxPath = 0;
+
+int maxSumPath(node*root){
+	if(root==NULL){
+		return 0;
+	}
+
+	int leftMax = max(0,maxSumPath(root->left));
+	int rightMax = max(0,maxSumPath(root->right));
+
+	maxPath = max(maxPath,leftMax + rightMax + root->data);
+
+	return max(leftMax,rightMax) + root->data;
+}
+
+class LinkListPair{
+public:
+	node* head;
+	node* tail;
+
+	LinkListPair(){
+		head = NULL;
+		tail = NULL;
+	}
+};
+
+LinkListPair treeToLinkedList(node*root){
+	LinkListPair val;
+
+	if(root==NULL){
+		return val;
+	}
+
+	if(root->left==NULL and root->right==NULL){
+		val.head = root;
+		val.tail = root;
+		return val;
+	}
+
+	if(root->left!=NULL and root->right==NULL){
+		LinkListPair leftPair = treeToLinkedList(root->left);
+
+		leftPair.tail->right = root;
+
+		val.head = leftPair.head;
+		val.tail = root;
+		return val;
+	}
+
+	if(root->left==NULL and root->right!=NULL){
+
+		LinkListPair rightPair = treeToLinkedList(root->right);
+
+		root->right = rightPair.head;
+
+		val.head = root;
+		val.tail = rightPair.tail;
+		return val;
+	}
+
+	if(root->left!=NULL and root->right!=NULL){
+
+		LinkListPair leftPair = treeToLinkedList(root->left);
+		LinkListPair rightPair = treeToLinkedList(root->right);
+
+		leftPair.tail->right = root;
+		root->right =rightPair.head;
+
+		val.head = leftPair.head;
+		val.tail = rightPair.tail;
+		return val;
+	}
+}
+
 int main(){
 
 	node* root = buildTree();
@@ -166,6 +253,18 @@ int main(){
 
 	// printLeaf(root);
 	// cout<<endl;
+
+	// cout<<maxPath<<endl;
+
+	LinkListPair temp = treeToLinkedList(root);
+
+	node* head = temp.head;
+
+	while(head!=NULL){
+		cout<<head->data<<" ";
+		head = head->right;
+	}
+	cout<<endl;
 
 	return 0;
 }
