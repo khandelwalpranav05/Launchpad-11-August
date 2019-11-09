@@ -21,5 +21,17 @@ int main(){
 		cout<<node.first<<" "<<node.second<<endl;
 	}
 
+
+	if(m.find("Mango")!=m.end()){
+		cout<<"Found"<<endl;
+	}
+
+	if(m.find("skjbf")==m.end()){
+		cout<<"Not Found"<<endl;
+	}
+
+	// int arr[] = {1,2,3,4,5,6};
+	// int brr[] = {8,9,7,2,3,7};
+
 	return 0;
 }
