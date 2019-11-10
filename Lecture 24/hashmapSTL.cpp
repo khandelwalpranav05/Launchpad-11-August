@@ -21,6 +21,15 @@ int main(){
 		cout<<node.first<<" "<<node.second<<endl;
 	}
 
+	// int arr[] = {1,1,2,3,6,9};
+	// for(int i=0;i<len;i++){
+	// 	cout<<arr[i];
+	// }
+
+	// for(int var:arr){
+	// 	cout<<var;
+	// }
+
 
 	if(m.find("Mango")!=m.end()){
 		cout<<"Found"<<endl;
