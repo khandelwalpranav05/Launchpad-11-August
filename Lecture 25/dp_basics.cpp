@@ -184,6 +184,101 @@ int reduceToOneMemo(int n,int reduceDP[]){
 	return reduceDP[n];
 }
 
+int reduceToOne_DP(int n){
+
+	int reduceDP[n+1];
+	reduceDP[0] = 0;
+	reduceDP[1] = 0;
+	reduceDP[2] = 1;
+	reduceDP[3] = 1;
+
+	for(int i=4;i<=n;i++){
+		int count1 = INT_MAX;
+		int count2 = INT_MAX;
+		int count3 = INT_MAX;
+
+		if(i%3==0){
+			count3 = reduceDP[i/3] + 1;
+		}
+
+		if(i%2==0){
+			count2 = reduceDP[i/2] + 1;
+		}
+
+		count1 = reduceDP[i-1] + 1;
+
+		reduceDP[i] = min(count1,min(count2,count3));
+	}
+
+	return reduceDP[n];
+}
+
+
+int numberOfBST(int n,int treeDP[]){
+	if(n==0){
+		return 1;
+	}
+
+	if(treeDP[n]!=0){
+		return treeDP[n];
+	}
+
+	int ans = 0;
+
+	for(int i=1;i<=n;i++){
+		ans+=numberOfBST(i-1,treeDP)*numberOfBST(n-i,treeDP);
+	}
+
+	treeDP[n] = ans;
+
+	for(int x=0;x<=4;x++){
+		cout<<treeDP[x]<<" ";
+	}
+	cout<<endl;
+
+	return ans;
+}
+
+int catalanNumber(int n){
+
+	int treeDP[n+1] = {1,1};
+
+	for(int i=2;i<=n;i++){
+		int temp = 0;
+		for(int j=1;j<=i;j++){
+			temp+= treeDP[j-1]*treeDP[i-j];
+		}
+
+		treeDP[i] = temp;
+	}
+
+	return treeDP[n];
+}
+
+int countHeightBalancedTree(int h,int heightDP[]){
+	if(h==1 or h==0){
+		return 1;
+	}
+
+	if(heightDP[h]!=0){
+		return heightDP[h];
+	}
+
+	int h1 = countHeightBalancedTree(h-1,heightDP);
+	int h2 = countHeightBalancedTree(h-2,heightDP);
+
+	int totalCount = h1*h2 + h2*h1 + h1*h1;
+
+	heightDP[h] = totalCount;
+
+	for(int i=0;i<5;i++){
+		cout<<heightDP[i]<<" ";
+	}
+	cout<<endl;
+
+	return totalCount;
+}
+
 int main(){
 
 	// clock_t start = clock();
@@ -207,7 +302,20 @@ int main(){
 
 	// cout<<reduceToOne(10)<<endl;
 
-	int reduceDP[11] = {0,0}; 
-	cout<<reduceToOneMemo(10,reduceDP)<<endl;
+	// int reduceDP[11] = {0,0}; 
+	// cout<<reduceToOneMemo(10,reduceDP)<<endl;
+
+	// cout<<reduceToOne_DP(21)<<endl;
+
+	// int n = 4;
+	// int treeDP[n+1] = {1};
+	// cout<<numberOfBST(n,treeDP)<<endl;
+
+	// cout<<catalanNumber(5)<<endl;
+
+	int n = 4;
+	int heightDP[n+1] = {1,1};
+	cout<<countHeightBalancedTree(n,heightDP)<<endl;
+
 	return 0;
 }
