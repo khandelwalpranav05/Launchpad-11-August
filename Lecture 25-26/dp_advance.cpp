@@ -123,12 +123,46 @@ int editDistance(string s1,string s2){
 	return result;
 }
 
+int editDistance_DP(string s1,string s2){
+
+	int n = s1.length() + 1;
+	int m = s2.length() + 1;
+
+	int editDP[n][m];
+
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+
+			if(i==0){
+				editDP[i][j] = j;
+				continue;
+			}
+
+			if(j==0){
+				editDP[i][j] = i;
+				continue;
+			}
+
+			if(s1[i-1]==s2[j-1]){
+				editDP[i][j] = editDP[i-1][j-1];
+			}else{
+				editDP[i][j] = min(editDP[i-1][j-1],min(editDP[i-1][j],editDP[i][j-1]));
+				editDP[i][j]+=1;
+			}
+		}
+	}
+
+	return editDP[n-1][m-1];
+}
+
 int main(){
 
 	// cout<<lcs("aqbeh","qaeibh")<<endl;
 
 	// cout<<lcs_DP("aqbeh","qaeibh")<<endl;
 
-	cout<<editDistance("Saturday","Sunday")<<endl;
+	// cout<<editDistance("Saturday","Sunday")<<endl;
+
+	cout<<editDistance_DP("Saturday","Sunday")<<endl;
 	return 0;
 }
