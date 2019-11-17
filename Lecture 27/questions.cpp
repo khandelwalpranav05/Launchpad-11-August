@@ -4,8 +4,8 @@
 
 using namespace std;
 
-int minCost(){
-	int arr[] = {4,2,3,6};
+long minCost(){
+	int arr[] = { 3, 7, 9, 4 };
 
 	priority_queue<int,vector<int>,greater<int> > pq;
 	// priority_queue<int> pq;
@@ -14,18 +14,17 @@ int minCost(){
 		pq.push(arr[i]);
 	}
 
-	int sum = 0;
-	int first = pq.top();
-	pq.pop();
-
-	while(!pq.empty()){
-		int second = pq.top();
-		pq.pop();
-
-		first+=second;
-
-		sum+=first;
-	}
+	long sum = 0; 
+  
+    while (pq.size() > 1) { 
+        int first = pq.top(); 
+        pq.pop(); 
+        int second = pq.top(); 
+        pq.pop(); 
+  
+        sum += first + second; 
+        pq.push(first + second); 
+    }
 
 	return sum;
 }
