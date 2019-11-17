@@ -60,7 +60,7 @@ int lcs_DP(string s1,string s2){
 				continue;
 			}
 
-			if(s1[i]==s2[j]){
+			if(s1[i-1]==s2[j-1]){
 
 				lcsDP[i][j] =  1 + lcsDP[i-1][j-1];
 
@@ -155,6 +155,47 @@ int editDistance_DP(string s1,string s2){
 	return editDP[n-1][m-1];
 }
 
+int knapSack(int weight[],int value[],int si,int capacity,int n){
+	if(si==n){
+		return 0;
+	}
+
+	int valueIncluded = 0;
+	int valueExcluded = 0;
+
+	if(weight[si]<=capacity){
+		valueIncluded = value[si] + knapSack(weight,value,si+1,capacity-weight[si],n);
+	}
+
+	valueExcluded = knapSack(weight,value,si+1,capacity,n);
+
+	return max(valueIncluded,valueExcluded);
+}
+
+int knapSack_DP(int weight[],int value[],int si,int capacity,int n){
+	int knapDP[n+1][capacity+1];
+
+	for(int i=0;i<=n;i++){
+		for(int j=0;j<=capacity;j++){
+
+			if(i==0 or j==0){
+				knapDP[i][j] = 0;
+				continue;
+			}
+
+			if(weight[i-1]<=j){
+				int exclude = knapDP[i-1][j];
+				int include = value[i-1] + knapDP[i-1][j - weight[i-1]];
+				knapDP[i][j] = max(include,exclude);
+			}else{
+				knapDP[i][j] = knapDP[i-1][j];
+			}
+		}
+	}
+
+	return knapDP[n][capacity];
+}
+
 int main(){
 
 	// cout<<lcs("aqbeh","qaeibh")<<endl;
@@ -163,6 +204,15 @@ int main(){
 
 	// cout<<editDistance("Saturday","Sunday")<<endl;
 
-	cout<<editDistance_DP("Saturday","Sunday")<<endl;
+	// cout<<editDistance_DP("Saturday","Sunday")<<endl;
+
+	int weight[] = {5,3,6,4};
+	int value[] = {50,30,60,40};
+	int n = 4;
+	int capacity = 7;
+
+	// cout<<knapSack(weight,value,0,capacity,n)<<endl;
+	cout<<knapSack_DP(weight,value,0,capacity,n)<<endl;
+
 	return 0;
 }
