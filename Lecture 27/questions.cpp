@@ -83,6 +83,23 @@ void arrayToHeap(int arr[],int n){
 	cout<<endl;
 }
 
+void heapSort(int arr[],int n){
+
+	for(int i=n-1;i>=0;i--){
+		heapify(arr,n,i);
+	}
+
+	for(int i=n-1;i>=0;i--){
+		swap(arr[0],arr[i]);
+		heapify(arr,i,0);
+	}
+
+	for(int i=0;i<n;i++){
+		cout<<arr[i]<<" ";
+	}
+	cout<<endl;
+}
+
 int main(){
 
 	// cout<<minCost()<<endl;
@@ -93,7 +110,8 @@ int main(){
 
 	int arr[] = {5,2,1,4,3,6};
 	int n = 6;
-	arrayToHeap(arr,n);
+	// arrayToHeap(arr,n);
+	// heapSort(arr,n);
 
 	return 0;
 }
