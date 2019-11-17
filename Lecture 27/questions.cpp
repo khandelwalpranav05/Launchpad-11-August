@@ -30,13 +30,70 @@ int minCost(){
 	return sum;
 }
 
-int kthLargestElement(){
-	
+int kthLargestElement(int arr[],int n,int k){
+
+	priority_queue<int,vector<int>,greater<int> > pq;
+
+	for(int i=0;i<n;i++){
+		if(k!=0){
+			pq.push(arr[i]);
+			k--;
+			continue;
+		}
+
+		if(arr[i]>pq.top()){
+			pq.pop();
+			pq.push(arr[i]);
+		}
+	}
+
+	return pq.top();
+}
+
+void heapify(int arr[],int n,int i){
+
+	int left = 2*i + 1;
+	int right = 2*i + 2;
+
+	int largestIndex = i;
+
+	if(right<n and arr[right]>arr[largestIndex]){
+		largestIndex = right;
+	}
+
+	if(left<n and arr[left]>arr[largestIndex]){
+		largestIndex = left;
+	}
+
+	if(largestIndex!=i){
+		swap(arr[i],arr[largestIndex]);
+		heapify(arr,n,largestIndex);
+	}
+}
+
+void arrayToHeap(int arr[],int n){
+
+	for(int i=n-1;i>=0;i--){
+		heapify(arr,n,i);
+	}
+
+	for(int i=0;i<n;i++){
+		cout<<arr[i]<<" ";
+	}
+	cout<<endl;
 }
 
 int main(){
 
-	cout<<minCost()<<endl;
+	// cout<<minCost()<<endl;
+
+	// int arr[] = {3,2,1,6,7,0,5};
+	// int n = 7;
+	// cout<<kthLargestElement(arr,7,2)<<endl;
+
+	int arr[] = {5,2,1,4,3,6};
+	int n = 6;
+	arrayToHeap(arr,n);
 
 	return 0;
 }
