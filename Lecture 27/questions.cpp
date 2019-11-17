@@ -111,7 +111,7 @@ int main(){
 	int arr[] = {5,2,1,4,3,6};
 	int n = 6;
 	// arrayToHeap(arr,n);
-	// heapSort(arr,n);
+	heapSort(arr,n);
 
 	return 0;
 }
