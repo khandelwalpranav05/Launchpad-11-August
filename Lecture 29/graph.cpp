@@ -11,9 +11,7 @@ class Graph{
 	unordered_map< T,list<T> > adjList;
 
 public:
-	Graph(){
-
-	}
+	Graph(){}
 
 	void addEdge(T u,T v,bool bidir = true){
 		adjList[u].push_back(v);
@@ -121,6 +119,32 @@ public:
 		cout<<"Number of Components "<<component<<endl;
 	}
 
+	void dfsTopologicalSortHelper(T node,unordered_map<T,bool> &visited,list<T> &ordering){
+		
+		visited[node] = true;
+
+		for(T neighbor:adjList[node]){
+			if(!visited[neighbor]){
+				dfsTopologicalSortHelper(neighbor,visited,ordering);
+			}
+		}
+
+		ordering.push_front(node);
+	}
+
+	void dfsTopologicalSort(T src){
+
+		unordered_map<T,bool> visited;
+		list<T> ordering;
+
+		dfsTopologicalSortHelper(src,visited,ordering);
+
+		for(T val:ordering){
+			cout<<val<<"-> ";
+		}
+		cout<<endl;
+	}
+
 };
 
 int main(){
@@ -141,27 +165,36 @@ int main(){
 
 	// g.display();
 
-	Graph<int> g;
+	// Graph<int> g;
 
-	g.addEdge(1,2);
-	g.addEdge(1,4);
-	g.addEdge(2,3);
-	g.addEdge(3,4);
-	g.addEdge(3,5);
-	g.addEdge(5,6);
-	g.addEdge(5,4);
-	g.addEdge(1,5);
+	// g.addEdge(1,2);
+	// g.addEdge(1,4);
+	// g.addEdge(2,3);
+	// g.addEdge(3,4);
+	// g.addEdge(3,5);
+	// g.addEdge(5,6);
+	// g.addEdge(5,4);
+	// g.addEdge(1,5);
 
-	g.addEdge(8,9);
-	g.addEdge(9,10);
-	g.addEdge(10,8);
+	// g.addEdge(8,9);
+	// g.addEdge(9,10);
+	// g.addEdge(10,8);
 
-	g.display();
+	// g.display();
 
 	// g.bfs(1);
 	// g.shortestPathBFS(1);
 
-	g.dfs(1);
+	// g.dfs(1);
+
+	Graph<int> g;
+
+	g.addEdge(1,2,false);
+	g.addEdge(1,3,false);
+	g.addEdge(2,4,false);
+	g.addEdge(3,4,false);
+
+	g.dfsTopologicalSort(1);
 
 	return 0;
 }
