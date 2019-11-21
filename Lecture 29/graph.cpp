@@ -2,6 +2,7 @@
 #include <unordered_map>
 #include <list>
 #include <queue>
+#include <climits>
 
 using namespace std;
 
@@ -58,6 +59,68 @@ public:
 
 		cout<<endl;	
 	}
+
+	void shortestPathBFS(T src){
+		queue<T> q;
+		unordered_map<T,int> dist;
+
+		for(auto node:adjList){
+			dist[node.first] = INT_MAX;
+		}
+
+		dist[src] = 0;
+		q.push(src);
+
+		while(!q.empty()){
+
+			T node = q.front();
+			q.pop();
+
+			for(T neighbor:adjList[node]){
+				if(dist[neighbor]==INT_MAX){
+					dist[neighbor] = dist[node] + 1;
+					q.push(neighbor);
+				}
+			}
+		}
+
+		for(auto vertex:adjList){
+			cout<<"Distance of "<<vertex.first<<" from source is "<<dist[vertex.first]<<endl;
+		}
+	}
+
+	void dfsHelper(T src,unordered_map<T,bool> &visited){
+
+		cout<<src<<" ";
+		visited[src] = true;
+
+		for(T neighbor:adjList[src]){
+			if(!visited[neighbor]){
+				dfsHelper(neighbor,visited);
+			}
+		}
+	}
+
+	void dfs(T src){
+		unordered_map<T,bool> visited;
+
+		int component = 1;
+
+		dfsHelper(src,visited);
+
+		cout<<endl;
+
+		for(auto node:adjList){
+			if(!visited[node.first]){
+				dfsHelper(node.first,visited);
+				component++;
+				cout<<endl;
+			}
+		}
+
+		cout<<"Number of Components "<<component<<endl;
+	}
+
 };
 
 int main(){
@@ -87,10 +150,18 @@ int main(){
 	g.addEdge(3,5);
 	g.addEdge(5,6);
 	g.addEdge(5,4);
+	g.addEdge(1,5);
+
+	g.addEdge(8,9);
+	g.addEdge(9,10);
+	g.addEdge(10,8);
 
 	g.display();
 
-	g.bfs(1);
+	// g.bfs(1);
+	// g.shortestPathBFS(1);
+
+	g.dfs(1);
 
 	return 0;
 }
