@@ -151,7 +151,7 @@ public:
 		visited[node] = true;
 
 		for(T neighbor:adjList[node]){
-			if(!visited[node]){
+			if(!visited[neighbor]){
 				journeyToMoonHelper(neighbor,visited,countrySize);
 			}
 		} 
@@ -165,7 +165,7 @@ public:
 		int total = n*(n-1)/2;
 
 		for(auto node:adjList){
-			if(!visited[node]){
+			if(!visited[node.first]){
 				int countrySize = 0;
 				journeyToMoonHelper(node.first,visited,countrySize);
 				total -= countrySize*(countrySize - 1)/2;
@@ -319,14 +319,14 @@ int main(){
 
 	// g.dfsTopologicalSort(1);
 
-	// Graph<int> g;
+	Graph<int> g;
 
+	g.addEdge(1,2);
+	g.addEdge(2,3);
+	g.addEdge(4,5);
 	// g.addEdge(1,2);
-	// g.addEdge(2,3);
-	// g.addEdge(4,5);
-	// // g.addEdge(1,2);
 
-	// cout<<g.journeyToMoon()<<endl;
+	cout<<g.journeyToMoon()<<endl;
 
 	// Graph<int> g;
 
@@ -365,23 +365,23 @@ int main(){
 
 	// g.bfsTopologicalSort();
 
-	Graph<int> g;
+	// Graph<int> g;
 
-	// g.addEdge(1,2);
-	// g.addEdge(1,4);
-	// g.addEdge(2,3);
-	// g.addEdge(3,4);
-	// g.addEdge(3,5);
-	// g.addEdge(5,6);
-	// g.addEdge(5,4);
-	// g.addEdge(1,5);
+	// // g.addEdge(1,2);
+	// // g.addEdge(1,4);
+	// // g.addEdge(2,3);
+	// // g.addEdge(3,4);
+	// // g.addEdge(3,5);
+	// // g.addEdge(5,6);
+	// // g.addEdge(5,4);
+	// // g.addEdge(1,5);
 
-	// g.addEdge(1,2);
-	// g.addEdge(1,3);
-	// g.addEdge(3,4);
-	// g.addEdge(4,5);
+	// // g.addEdge(1,2);
+	// // g.addEdge(1,3);
+	// // g.addEdge(3,4);
+	// // g.addEdge(4,5);
 
-	// cout<<g.isCyclic(1)<<endl;
+	// // cout<<g.isCyclic(1)<<endl;
 
 	return 0;
 }
