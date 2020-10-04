@@ -20,19 +20,42 @@ string ultraFast(string s1,string s2){
 
 //TODO
 
-// void rotate(int arr[4][4],int n){
+void display(int arr[4][4], int n){
+	cout<<"************** \n";
+	for(int i=0;i<n;i++){
+		cout<<"[ ";
+		for(int j=0;j<n;j++){
+			cout<<arr[i][j]<<" ";
+		}
+		cout<<"] "<<endl;
+	}
+}
 
-// 	for(int row=0;row<n/2;row++){
+void rotate(int arr[4][4],int n){
+// Rotating the matrix by first transposing it and then mirroring it
 
-// 		for(int col=row;col<n-1-row;col++){
+	for(int row=0;row<n;row++){
 
-// 			//Col change
+		for(int col=row+1;col<n;col++){
 
-// 		}
+			swap(arr[row][col],arr[col][row]);
 
-// 	}
+		}
 
-// }
+	}
+
+	for(int col=0;col<n/2;col++){
+
+		for(int row=0;row<n;row++){
+
+			swap(arr[row][col],arr[row][n-1-col]);
+
+		}
+
+	}
+
+	return;
+}
 
 int count = 0;
 
@@ -100,5 +123,13 @@ int main(){
 	// string s2 = "10000";
 
 	// cout<<ultraFast(s1,s2)<<endl;
+
+	// int arr[4][4] = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+
+	// display(arr,4);
+
+	// rotate(arr,4);
+
+	// display(arr,4);
 
 }
