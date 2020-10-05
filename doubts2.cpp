@@ -18,8 +18,6 @@ string ultraFast(string s1,string s2){
 	return s1;
 }
 
-//TODO
-
 void display(int arr[4][4], int n){
 	cout<<"************** \n";
 	for(int i=0;i<n;i++){
@@ -54,7 +52,6 @@ void rotate(int arr[4][4],int n){
 
 	}
 
-	return;
 }
 
 int count = 0;
